@@ -4,6 +4,16 @@ import Web from './Web.jsx';
 export default class Webs extends Component {
 	constructor() {
 	    super();
+	    this.state = {data: []};
+	}
+
+	shouldComponentUpdate() {
+		this.state = {data: this.props.data};
+        return true;
+	}
+
+    componentDidMount() {
+        this.state = {data: this.props.data};
 	}
 	
 	getWebs() {
@@ -14,18 +24,17 @@ export default class Webs extends Component {
 	}
 	
     render() {
-		debugger;
-		
-		
-		
-		
 		return (
 	        <ul className="list-group">
 		    {
 				this.props.data.map(web =>
-			    <Web data={web} key={web.ID} keyword={this.props.keyword} />
+			    <Web data={web} key={web.ID} keyword={this.props.keyword} parent={this}/>
 			)}
 		    </ul>
 		);
+	}
+
+	deleteWeb(ID) {
+        this.props.parent.deleteWeb(ID);
 	}
 }

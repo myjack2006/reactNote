@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { createStore } from 'redux'
 import {connect} from 'react-redux';
 import {addTodo, find} from './actions/actions';
 
@@ -15,19 +16,15 @@ class App extends Component {
 	componentDidMount() {
 		var that = this;
 		$.ajax({
-		    url: 'data/SendDataToClient.json',
+		    url: 'http://localhost:9000/getnotes/yanglihao',
 			type: 'GET',
-			dateType: 'json',
-			data: 'tele',
-			async: false,
-			scriptCharset: 'utf-8',
+			dateType: 'jsonp',
 			success: function(resp) {
 				that.setState({
 				    favorite: resp
 				});
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				debugger;
 			    alert(XMLHttpRequest.status);
 			    alert(XMLHttpRequest.readyState);
 			    alert(textStatus);
@@ -42,22 +39,23 @@ class App extends Component {
 		let that = this;
 		let webs = [];
 		if (that.state != null && that.state.favorite != null) {
-			that.state.favorite.page.Mtables.table.map(table => {
-				if (table.Mrows != null && table.Mrows.row != null && table.Mrows.row.map != null) {				
-					table.Mrows.row.map(row => {
-						if (row.Mrowwebs != null && row.Mrowwebs.web != null && row.Mrowwebs.web.map != null) {
-							row.Mrowwebs.web.map( web => {
-								webs.push(web);
-							});
-						}
-					});
-				}
-			    
+			that.state.favorite.list.map(web => {
+			    webs.push(web);
 		    });
 		}
 		
 		return webs;
 	}
+
+    deleteWeb(ID) {
+        this.props.parent.deleteWeb(ID)
+        for (let i = 0; i < this.props.data.length; i++) {
+            if (this.props.data[i].ID == ID) {
+                this.props.data.slice(i, 1);
+                break;
+            }
+        }
+    }
 	
 	/*
 	<TodoList todos = {visibleTodos} />
@@ -65,12 +63,12 @@ class App extends Component {
 	
     render() {
 	    const {dispatch, visibleTodos, keyword} = this.props;
-		debugger;
 		
 		return (
 		    <div>
 			    <AddTodo
 				    data={this.state}
+					parent={this}
 				    onAddClick = {text => dispatch(addTodo(text))}
 				/>
 				

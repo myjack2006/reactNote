@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="7a7d5a38-ad93-48c8-8b01-3dcd0a3ac860" name="myReactNote" url="http://leixiaohua.com">
+        <fileTransfer host="leixiaohua.com" port="22" privateKey="$USER_HOME$/Downloads/hi" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
