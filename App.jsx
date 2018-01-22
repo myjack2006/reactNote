@@ -8,6 +8,8 @@ import TodoList from './components/TodoList.jsx';
 import Search from './components/Search.jsx';
 import Webs from './components/Webs.jsx';
 
+const host = location.href.match(/^(http|ftp|https):\/\/[\w\-_]+(\.*[\w\-_]+)+/gi)[0];
+
 class App extends Component {
 	constructor(props) {
 		super(props);
@@ -16,7 +18,8 @@ class App extends Component {
 	componentDidMount() {
 		var that = this;
 		$.ajax({
-		    url: 'http://localhost:9000/getnotes/yanglihao',
+		    // url: host + ':9000/getnotes/yanglihao',
+            url: 'http://59.111.96.250:9000/getnotes/yanglihao',
 			type: 'GET',
 			dateType: 'jsonp',
 			success: function(resp) {
@@ -48,13 +51,31 @@ class App extends Component {
 	}
 
     deleteWeb(ID) {
-        this.props.parent.deleteWeb(ID)
-        for (let i = 0; i < this.props.data.length; i++) {
-            if (this.props.data[i].ID == ID) {
-                this.props.data.slice(i, 1);
+		var webs = this.state.favorite.list;
+        for (let i = 0; i < webs.length; i++) {
+            if (webs[i].ID == ID) {
+                webs.splice(i, 1);
+                $.ajax({
+                    url: host + ':9000/deletenote/yanglihao',
+                    type: 'GET',
+                    dateType: 'jsonp',
+					data: 'ID=' + ID,
+                    success: function(resp) {
+
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert(XMLHttpRequest.status);
+                        alert(XMLHttpRequest.readyState);
+                        alert(textStatus);
+                    },
+                    complete: function(XMLHttpRequest, textStatus) {
+
+                    }
+                });
                 break;
             }
         }
+        this.setState({favorite: {list: webs}});
     }
 	
 	/*
@@ -73,7 +94,7 @@ class App extends Component {
 				/>
 				
 				<Search onFindClick = {text => dispatch(find(text))} />
-				<Webs data = {this.getWebs()} keyword = {this.props.keyword} />
+				<Webs data = {this.getWebs()} keyword = {this.props.keyword} parent={this} />
 			</div>
 		);
 	}

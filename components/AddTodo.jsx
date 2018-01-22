@@ -1,4 +1,7 @@
 import React, {Component, PropTypes} from 'react';
+
+const host = location.href.match(/^(http|ftp|https):\/\/[\w\-_]+(\.*[\w\-_]+)+/gi)[0];
+
 export default class AddTodo extends Component {
     render() {
 	    return (
@@ -35,7 +38,7 @@ export default class AddTodo extends Component {
         };
 
         $.ajax({
-            url: 'http://localhost:9000/addnote/yanglihao',
+            url: host + ':9000/addnote/yanglihao',
             type: 'GET',
             dateType: 'jsonp',
             data: postData,
