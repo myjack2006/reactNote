@@ -18,8 +18,8 @@ class App extends Component {
 	componentDidMount() {
 		var that = this;
 		$.ajax({
-		    // url: host + ':9000/getnotes/yanglihao',
-            url: 'http://59.111.96.250:9000/getnotes/yanglihao',
+		    url: host + ':9000/getnotes/yanglihao',
+            //url: 'http://59.111.96.250:9000/getnotes/yanglihao',
 			type: 'GET',
 			dateType: 'jsonp',
 			success: function(resp) {
