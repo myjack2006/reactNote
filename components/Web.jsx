@@ -30,7 +30,7 @@ export default class Web extends Component {
 				<div className="list-group">
 					<div className="list-group-item list-group-item-success">{this.props.data.title}</div>
 					<a href={link} target="_blank" className="list-group-item list-group-item-info">{this.props.data.link}</a>
-					<a href="#" className="list-group-item list-group-item-warning">{this.props.data.note}</a>
+					<div className="list-group-item list-group-item-warning">{this.props.data.note}</div>
 					<div className="list-group-item list-group-item-success">
 						<button onClick={ e => this.disMoreButton(e)}>Operate</button>
 						<button style={{'display': this.state.deleteButtonStyle}} onClick={ e => this.deleteItem(e)}>Delete</button></div>
