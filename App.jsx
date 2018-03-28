@@ -18,7 +18,7 @@ class App extends Component {
 	componentDidMount() {
 		var that = this;
 		$.ajax({
-		    url: host + ':9000/getnotes/yanglihao',
+		    url: host + ':801/getnotes/yanglihao',
             //url: 'http://59.111.96.250:9000/getnotes/yanglihao',
 			type: 'GET',
 			dateType: 'jsonp',
@@ -56,7 +56,7 @@ class App extends Component {
             if (webs[i].ID == ID) {
                 webs.splice(i, 1);
                 $.ajax({
-                    url: host + ':9000/deletenote/yanglihao',
+                    url: host + ':801/deletenote/yanglihao',
                     type: 'GET',
                     dateType: 'jsonp',
 					data: 'ID=' + ID,
