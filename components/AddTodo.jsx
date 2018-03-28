@@ -38,7 +38,7 @@ export default class AddTodo extends Component {
         };
 
         $.ajax({
-            url: host + ':9000/addnote/yanglihao',
+            url: host + ':801/addnote/yanglihao',
             type: 'GET',
             dateType: 'jsonp',
             data: postData,
