@@ -10,9 +10,9 @@ export default class Web extends Component {
 			return true;
 		}
 		let lowerCaseKeyword = this.props.keyword.toLowerCase();
-		if ( (this.props.data.Name || '').toLowerCase().indexOf(lowerCaseKeyword) > -1 
+		if ( (this.props.data.title || '').toLowerCase().indexOf(lowerCaseKeyword) > -1 
 	        || (this.props.data.link || '').toLowerCase().indexOf(lowerCaseKeyword) > -1
-            || (this.props.data.Note || '').toLowerCase().indexOf(lowerCaseKeyword) > -1) {
+            || (this.props.data.note || '').toLowerCase().indexOf(lowerCaseKeyword) > -1) {
 			return true
 		}
 		return false;
